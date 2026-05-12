@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart — Grayscale</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">GRAYSCALE</a>
+        <div class="nav-links">
+            <a href="shop.html">Shop</a>
+            <a href="index.html#lookbook">Lookbook</a>
+            <a href="index.html#size-guide">Size Guide</a>
+            <a href="contact.html">Contact</a>
+            <a href="cart.html" class="cart-link">Cart (<span id="cart-count">0</span>)</a>
+        </div>
+        <button class="nav-toggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="mobile-menu">
+        <a href="shop.html">Shop</a>
+        <a href="index.html#lookbook">Lookbook</a>
+        <a href="index.html#size-guide">Size Guide</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart (<span class="mobile-cart-count">0</span>)</a>
+    </div>
+
+    <main class="cart-page">
+        <div class="container">
+            <div class="page-header" style="padding-top: 0;">
+                <h1>Your Cart</h1>
+            </div>
+
+            <div id="cart-content">
+                <!-- Cart content loaded via JS -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2025 Grayscale. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        function renderCart() {
+            const cart = getCart();
+            const container = document.getElementById('cart-content');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="cart-empty">
+                        <h2>Your cart is empty</h2>
+                        <p>Looks like you haven't added anything yet.</p>
+                        <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = subtotal >= 999 ? 0 : 79;
+            const total = subtotal + shipping;
+
+            container.innerHTML = `
+                <div class="cart-layout">
+                    <div class="cart-items">
+                        ${cart.map(item => `
+                            <div class="cart-item" data-id="${item.id}" data-size="${item.size}">
+                                <div class="cart-item-image">
+                                    <img src="${item.image}" alt="${item.name}">
+                                </div>
+                                <div class="cart-item-info">
+                                    <h3>${item.name}</h3>
+                                    <p class="size">Size: ${item.size}</p>
+                                    <p class="price">₹${item.price}</p>
+                                </div>
+                                <div class="cart-item-actions">
+                                    <div class="quantity-controls">
+                                        <button class="cart-qty-minus">−</button>
+                                        <input type="number" value="${item.quantity}" min="1" max="10" readonly>
+                                        <button class="cart-qty-plus">+</button>
+                                    </div>
+                                    <button class="remove-item">Remove</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="cart-summary">
+                        <h2>Order Summary</h2>
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span>₹${subtotal}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping</span>
+                            <span>${shipping === 0 ? 'Free' : '₹' + shipping}</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span>₹${total}</span>
+                        </div>
+                        <a href="checkout.html" class="btn btn-primary btn-full">Checkout</a>
+                    </div>
+                </div>
+            `;
+
+            // Quantity controls
+            document.querySelectorAll('.cart-qty-minus').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const item = e.target.closest('.cart-item');
+                    updateCartItemQuantity(item.dataset.id, item.dataset.size, -1);
+                    renderCart();
+                });
+            });
+
+            document.querySelectorAll('.cart-qty-plus').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const item = e.target.closest('.cart-item');
+                    updateCartItemQuantity(item.dataset.id, item.dataset.size, 1);
+                    renderCart();
+                });
+            });
+
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const item = e.target.closest('.cart-item');
+                    removeFromCart(item.dataset.id, item.dataset.size);
+                    renderCart();
+                });
+            });
+        }
+
+        renderCart();
+    </script>
+</body>
+</html>
