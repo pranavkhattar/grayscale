@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop — Grayscale</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">GRAYSCALE</a>
+        <div class="nav-links">
+            <a href="shop.html">Shop</a>
+            <a href="index.html#lookbook">Lookbook</a>
+            <a href="index.html#size-guide">Size Guide</a>
+            <a href="contact.html">Contact</a>
+            <a href="cart.html" class="cart-link">Cart (<span id="cart-count">0</span>)</a>
+        </div>
+        <button class="nav-toggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="mobile-menu">
+        <a href="shop.html">Shop</a>
+        <a href="index.html#lookbook">Lookbook</a>
+        <a href="index.html#size-guide">Size Guide</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart (<span class="mobile-cart-count">0</span>)</a>
+    </div>
+
+    <main>
+        <div class="page-header">
+            <h1>Shop All</h1>
+        </div>
+
+        <div class="container">
+            <div class="filters">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="tshirts">T-Shirts</button>
+                <button class="filter-btn" data-category="shirts">Shirts</button>
+                <button class="filter-btn" data-category="bottoms">Bottoms</button>
+                <button class="filter-btn" data-category="accessories">Accessories</button>
+            </div>
+
+            <div class="product-grid" id="shop-products">
+                <!-- Products loaded via JS -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>GRAYSCALE</h3>
+                    <p>Minimal essentials for the modern wardrobe.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Shop</h4>
+                    <a href="shop.html">All Products</a>
+                    <a href="shop.html?category=tshirts">T-Shirts</a>
+                    <a href="shop.html?category=shirts">Shirts</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Help</h4>
+                    <a href="index.html#size-guide">Size Guide</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Connect</h4>
+                    <a href="[instagram.com](https://instagram.com/weargrayscale)" target="_blank">Instagram</a>
+                    <a href="[wa.me](https://wa.me/91XXXXXXXXXX)" target="_blank">WhatsApp</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Grayscale. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const category = btn.dataset.category;
+                renderProducts('shop-products', category === 'all' ? null : category);
+            });
+        });
+
+        // Check URL for category
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get('category');
+        if (categoryParam) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.querySelector(`[data-category="${categoryParam}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+            renderProducts('shop-products', categoryParam);
+        } else {
+            renderProducts('shop-products');
+        }
+    </script>
+</body>
+</html>
