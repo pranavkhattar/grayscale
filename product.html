@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product — Grayscale</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">GRAYSCALE</a>
+        <div class="nav-links">
+            <a href="shop.html">Shop</a>
+            <a href="index.html#lookbook">Lookbook</a>
+            <a href="index.html#size-guide">Size Guide</a>
+            <a href="contact.html">Contact</a>
+            <a href="cart.html" class="cart-link">Cart (<span id="cart-count">0</span>)</a>
+        </div>
+        <button class="nav-toggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="mobile-menu">
+        <a href="shop.html">Shop</a>
+        <a href="index.html#lookbook">Lookbook</a>
+        <a href="index.html#size-guide">Size Guide</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart (<span class="mobile-cart-count">0</span>)</a>
+    </div>
+
+    <main class="product-page">
+        <div class="container">
+            <div class="product-layout">
+                <div class="product-gallery">
+                    <div class="product-main-image">
+                        <img id="main-image" src="" alt="">
+                    </div>
+                    <div class="product-thumbnails" id="thumbnails">
+                        <!-- Thumbnails loaded via JS -->
+                    </div>
+                </div>
+
+                <div class="product-details">
+                    <h1 id="product-name"></h1>
+                    <div class="price" id="product-price"></div>
+                    <p class="product-description" id="product-description"></p>
+
+                    <div class="size-selector">
+                        <label>Size</label>
+                        <div class="size-options" id="size-options">
+                            <!-- Sizes loaded via JS -->
+                        </div>
+                    </div>
+
+                    <div class="quantity-selector">
+                        <label>Quantity</label>
+                        <div class="quantity-controls">
+                            <button id="qty-minus">−</button>
+                            <input type="number" id="quantity" value="1" min="1" max="10">
+                            <button id="qty-plus">+</button>
+                        </div>
+                    </div>
+
+                    <div class="add-to-cart">
+                        <button class="btn btn-primary btn-full" id="add-to-cart">Add to Cart</button>
+                    </div>
+
+                    <div class="product-meta">
+                        <p>✓ 100% Premium Cotton</p>
+                        <p>✓ Free shipping above ₹999</p>
+                        <p>✓ Easy 7-day returns</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2025 Grayscale. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="notification" id="notification">Added to cart!</div>
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Get product from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        const product = products.find(p => p.id === productId);
+
+        if (!product) {
+            window.location.href = 'shop.html';
+        }
+
+        // Populate page
+        document.title = `${product.name} — Grayscale`;
+        document.getElementById('product-name').textContent = product.name;
+        document.getElementById('product-description').textContent = product.description;
+        
+        // Price
+        const priceEl = document.getElementById('product-price');
+        if (product.originalPrice) {
+            priceEl.innerHTML = `<span class="original">₹${product.originalPrice}</span>₹${product.price}`;
+        } else {
+            priceEl.textContent = `₹${product.price}`;
+        }
+
+        // Images
+        const mainImage = document.getElementById('main-image');
+        mainImage.src = product.images[0];
+        mainImage.alt = product.name;
+
+        const thumbnails = document.getElementById('thumbnails');
+        product.images.forEach((img, index) => {
+            const thumb = document.createElement('div');
+            thumb.className = `product-thumb ${index === 0 ? 'active' : ''}`;
+            thumb.innerHTML = `<img src="${img}" alt="">`;
+            thumb.addEventListener('click', () => {
+                mainImage.src = img;
+                document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+            });
+            thumbnails.appendChild(thumb);
+        });
+
+        // Sizes
+        const sizesEl = document.getElementById('size-options');
+        let selectedSize = null;
+        product.sizes.forEach(size => {
+            const btn = document.createElement('button');
+            btn.className = 'size-option';
+            btn.textContent = size;
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.size-option').forEach(s => s.classList.remove('active'));
+                btn.classList.add('active');
+                selectedSize = size;
+            });
+            sizesEl.appendChild(btn);
+        });
+
+        // Quantity
+        const qtyInput = document.getElementById('quantity');
+        document.getElementById('qty-minus').addEventListener('click', () => {
+            if (qtyInput.value > 1) qtyInput.value = parseInt(qtyInput.value) - 1;
+        });
+        document.getElementById('qty-plus').addEventListener('click', () => {
+            if (qtyInput.value < 10) qtyInput.value = parseInt(qtyInput.value) + 1;
+        });
+
+        // Add to cart
+        document.getElementById('add-to-cart').addEventListener('click', () => {
+            if (!selectedSize) {
+                alert('Please select a size');
+                return;
+            }
+
+            const item = {
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                size: selectedSize,
+                quantity: parseInt(qtyInput.value),
+                image: product.images[0]
+            };
+
+            addToCart(item);
+            showNotification('Added to cart!');
+        });
+    </script>
+</body>
+</html>
