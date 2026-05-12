@@ -1,194 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grayscale — Minimal Clothing</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="[fonts.googleapis.com](https://fonts.googleapis.com)">
-    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap)" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>State of Decay — Grayscale</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <a href="index.html" class="nav-logo">GRAYSCALE</a>
-        <div class="nav-links">
-            <a href="shop.html">Shop</a>
-            <a href="#lookbook">Lookbook</a>
-            <a href="#size-guide">Size Guide</a>
-            <a href="contact.html">Contact</a>
-            <a href="cart.html" class="cart-link">
-                Cart (<span id="cart-count">0</span>)
-            </a>
-        </div>
-        <button class="nav-toggle" aria-label="Menu">
-            <span></span>
-            <span></span>
-        </button>
-    </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <a href="shop.html">Shop</a>
-        <a href="#size-guide">Size Guide</a>
-        <a href="contact.html">Contact</a>
-        <a href="cart.html">Cart (<span class="mobile-cart-count">0</span>)</a>
+  <!-- Navigation -->
+  <nav class="nav">
+
+    <a href="index.html" class="nav-logo">
+      GRAYSCALE
+    </a>
+
+    <div class="nav-links">
+      <a href="shop.html">Shop</a>
+      <a href="collections.html">State of Decay</a>
+      <a href="index.html#size-guide">Size Guide</a>
+      <a href="contact.html">Contact</a>
+
+      <a href="cart.html" class="cart-link">
+        Cart (<span id="cart-count">0</span>)
+      </a>
     </div>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Less noise.<br>More style.</h1>
-            <p>Minimal essentials for the modern wardrobe</p>
-            <a href="shop.html" class="btn btn-primary">Shop Now</a>
-        </div>
-    </section>
+    <button class="nav-toggle" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
 
-    <!-- Marquee -->
-    <div class="marquee">
-        <div class="marquee-content">
-            <span>FREE SHIPPING ABOVE ₹999</span>
-            <span>•</span>
-            <span>EASY RETURNS</span>
-            <span>•</span>
-            <span>100% COTTON</span>
-            <span>•</span>
-            <span>FREE SHIPPING ABOVE ₹999</span>
-            <span>•</span>
-            <span>EASY RETURNS</span>
-            <span>•</span>
-            <span>100% COTTON</span>
-            <span>•</span>
-        </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <a href="shop.html">Shop</a>
+    <a href="collections.html">State of Decay</a>
+    <a href="index.html#size-guide">Size Guide</a>
+    <a href="contact.html">Contact</a>
+
+    <a href="cart.html">
+      Cart (<span class="mobile-cart-count">0</span>)
+    </a>
+  </div>
+
+  <!-- Hero -->
+  <section class="collection-hero">
+
+    <div class="collection-overlay"></div>
+
+    <img
+      src="images/state-of-decay-banner.jpg"
+      alt="State of Decay"
+      class="collection-banner"
+    >
+
+    <div class="collection-content">
+
+      <p class="collection-label">
+        Collection 001
+      </p>
+
+      <h1>
+        State of Decay
+      </h1>
+
+      <p class="collection-description">
+        A study of deterioration, silence, and survival.
+        Monochrome silhouettes designed for the forgotten modern world.
+      </p>
+
+      <a href="shop.html" class="btn btn-primary">
+        Explore Collection
+      </a>
+
     </div>
 
-    <!-- Product Grid -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>New Arrivals</h2>
-                <a href="shop.html" class="link-arrow">View All →</a>
-            </div>
-            <div class="product-grid" id="featured-products">
-                <!-- Products loaded via JS -->
-            </div>
-        </div>
-    </section>
+  </section>
 
-    <!-- Lookbook 
-    <section class="lookbook" id="lookbook">
-        <div class="container">
-            <h2>Lookbook</h2>
-            <div class="lookbook-grid">
-                <div class="lookbook-item">
-                    <img src="images/lookbook-1.jpg" alt="Lookbook" loading="lazy">
-                </div>
-                <div class="lookbook-item">
-                    <img src="images/lookbook-2.jpg" alt="Lookbook" loading="lazy">
-                </div>
-                <div class="lookbook-item">
-                    <img src="images/lookbook-3.jpg" alt="Lookbook" loading="lazy">
-                </div>
-                <div class="lookbook-item">
-                    <img src="images/lookbook-4.jpg" alt="Lookbook" loading="lazy">
-                </div>
-            </div>
-        </div>
-    </section>
--->
-    <!-- Size Guide -->
-    <section class="size-guide" id="size-guide">
-        <div class="container">
-            <h2>Size Guide</h2>
-            <p class="size-guide-note">All measurements in inches. When in doubt, size up.</p>
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Size</th>
-                            <th>Chest</th>
-                            <th>Length</th>
-                            <th>Shoulder</th>
-                            <th>Sleeve</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>S</td>
-                            <td>38</td>
-                            <td>27</td>
-                            <td>17</td>
-                            <td>8</td>
-                        </tr>
-                        <tr>
-                            <td>M</td>
-                            <td>40</td>
-                            <td>28</td>
-                            <td>18</td>
-                            <td>8.5</td>
-                        </tr>
-                        <tr>
-                            <td>L</td>
-                            <td>42</td>
-                            <td>29</td>
-                            <td>19</td>
-                            <td>9</td>
-                        </tr>
-                        <tr>
-                            <td>XL</td>
-                            <td>44</td>
-                            <td>30</td>
-                            <td>20</td>
-                            <td>9.5</td>
-                        </tr>
-                        <tr>
-                            <td>XXL</td>
-                            <td>46</td>
-                            <td>31</td>
-                            <td>21</td>
-                            <td>10</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
+  <!-- Collection Grid -->
+  <section class="section">
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <h3>GRAYSCALE</h3>
-                    <p>Minimal essentials for the modern wardrobe. Quality basics that last.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Shop</h4>
-                    <a href="shop.html">All Products</a>
-                    <a href="shop.html?category=tshirts">T-Shirts</a>
-                    <a href="shop.html?category=shirts">Shirts</a>
-                    <a href="shop.html?category=bottoms">Bottoms</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Help</h4>
-                    <a href="#size-guide">Size Guide</a>
-                    <a href="contact.html">Contact Us</a>
-                    <a href="contact.html">Shipping & Returns</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Connect</h4>
-                    <a href="[instagram.com](https://instagram.com/weargrayscale)" target="_blank">Instagram</a>
-                    <a href="[wa.me](https://wa.me/91XXXXXXXXXX)" target="_blank">WhatsApp</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 Grayscale. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <div class="container">
 
-    <script src="js/products.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="js/main.js"></script>
+      <div class="section-header">
+        <h2>Editorial</h2>
+      </div>
+
+      <div class="collection-grid">
+
+        <div class="collection-item large">
+          <img src="images/collection-1.jpg" alt="">
+        </div>
+
+        <div class="collection-item">
+          <img src="images/collection-2.jpg" alt="">
+        </div>
+
+        <div class="collection-item">
+          <img src="images/collection-3.jpg" alt="">
+        </div>
+
+        <div class="collection-item wide">
+          <img src="images/collection-4.jpg" alt="">
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <h3>GRAYSCALE</h3>
+
+          <p>
+            Minimal essentials for the modern wardrobe.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <h4>Shop</h4>
+
+          <a href="shop.html">All Products</a>
+        </div>
+
+        <div class="footer-links">
+          <h4>Help</h4>
+
+          <a href="index.html#size-guide">Size Guide</a>
+          <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="footer-links">
+          <h4>Connect</h4>
+
+          <a href="#">Instagram</a>
+          <a href="#">WhatsApp</a>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Grayscale. All rights reserved.</p>
+      </div>
+
+    </div>
+
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+
 </body>
 </html>
