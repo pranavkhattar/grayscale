@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed — Grayscale</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">GRAYSCALE</a>
+        <div class="nav-links">
+            <a href="shop.html">Shop</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <main class="confirmation">
+        <div class="confirmation-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+        <h1>Order Confirmed!</h1>
+        <p>Thank you for your purchase. We'll send you tracking details once your order ships.</p>
+        <div class="order-number">
+            Order Number: <span id="order-id"></span>
+        </div>
+        <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('order');
+        document.getElementById('order-id').textContent = orderId || 'N/A';
+    </script>
+</body>
+</html>
